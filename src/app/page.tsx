@@ -5,6 +5,7 @@ import axios from "axios";
 import Card from "@/components/Card";
 import { Article } from "@/types/article";
 import { GuardianArticle } from "@/types/GuardianArticle";
+import { NewsApiAIArticle } from "@/types/NewsApiAIArticle";
 
 const Home = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -55,8 +56,47 @@ const Home = () => {
     setArticles(formattedNews);
   };
 
+  const fetchNewsApiAI = async () => {
+    const newsResponse = await axios.post(
+      "https://eventregistry.org/api/v1/article/getArticles",
+      {
+        query: {
+          $query: {
+            $and: [
+              {
+                lang: "eng",
+              },
+            ],
+          },
+        },
+        resultType: "articles",
+        articlesSortBy: "date",
+        apiKey: "e039edcb-d62e-41ee-bca1-b1d64f2f8b5d",
+        articlesCount: 10,
+      }
+    );
+    const news = newsResponse.data.articles.results as NewsApiAIArticle[];
+    const formattedNews: Article[] = news.map((item) => ({
+      title: item.title,
+      description: item.body,
+      publishedAt: item.dateTime,
+      source: {
+        id: item.source.uri,
+        name: item.source.title,
+      },
+      url: item.url,
+      urlToImage:
+        item.image ||
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp15Q0fuxA016kqjJ4kbS_20EpMa3IY1-5DQ&s",
+      author: item.authors.length
+        ? item.authors.map(({ name }) => name).join(",")
+        : "",
+    }));
+    setArticles(formattedNews);
+  };
+
   useEffect(() => {
-    fetchGuardianNews();
+    fetchNewsApiAI();
   }, []);
 
   return (
