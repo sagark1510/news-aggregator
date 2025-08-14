@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "@/components/Card";
 import { Article } from "@/types/article";
+import { GuardianArticle } from "@/types/GuardianArticle";
 
 const Home = () => {
   const [articles, setArticles] = useState<Article[]>([]);
-  const fetchNews = async () => {
+  const fetchNewsApiOrg = async () => {
     const sourcesResponse = await axios.get(
       "https://newsapi.org/v2/top-headlines/sources?apiKey=c1a35f605ae04659866dd7f8cfe52758"
     );
@@ -29,8 +30,33 @@ const Home = () => {
     setArticles(news);
   };
 
+  const fetchGuardianNews = async () => {
+    const newsResponse = await axios.get(
+      "https://content.guardianapis.com/search",
+      {
+        params: {
+          "api-key": "1bb51a1d-4d4a-41db-8291-7b787c4e3afb",
+        },
+      }
+    );
+    const news = newsResponse.data.response.results as GuardianArticle[];
+    const formattedNews: Article[] = news.map((item) => ({
+      title: item.webTitle,
+      description: "",
+      publishedAt: item.webPublicationDate,
+      source: {
+        id: "Guardian",
+        name: "The Gaurdian",
+      },
+      url: item.webUrl,
+      urlToImage:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp15Q0fuxA016kqjJ4kbS_20EpMa3IY1-5DQ&s",
+    }));
+    setArticles(formattedNews);
+  };
+
   useEffect(() => {
-    fetchNews();
+    fetchGuardianNews();
   }, []);
 
   return (

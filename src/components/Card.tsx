@@ -10,16 +10,17 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ article }) => {
   return (
     <Link
-      href={`/article/${article.title}`}
+      href=""
+      onClick={() => window.open(article.url, "_blank")?.focus()}
       className="dark:-outline-offset-1 outline outline-black/5 dark:outline-white/10 max-w-sm rounded-xl overflow-hidden shadow-lg"
     >
       <img className="w-full" src={article.urlToImage} alt={article.title} />
       <div className="flex flex-col px-6 py-4 gap-4">
         <div className="flex justify-between">
-          <p className="text-gray-600 text-xs dark:text-gray-300">
-            by {article.author}
+          <p className="text-gray-600 italic text-xs dark:text-gray-300">
+            {article.author ? `by ${article.author}` : ""}
           </p>
-          <p className="text-gray-500 text-xs dark:text-gray-300">
+          <p className="text-gray-600 italic text-xs dark:text-gray-300">
             {humanizeDate(article.publishedAt)}
           </p>
         </div>

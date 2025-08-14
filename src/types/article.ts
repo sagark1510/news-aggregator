@@ -5,11 +5,10 @@ interface Source {
 
 export interface Article {
   source: Source;
-  author: string;
+  author?: string;
   title: string;
   description: string;
   url: string;
-  urlToImage: string;
+  urlToImage?: string;
   publishedAt: string;
-  content: string;
 }
