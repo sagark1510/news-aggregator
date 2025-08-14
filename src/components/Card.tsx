@@ -7,6 +7,9 @@ interface CardProps {
   article: Article;
 }
 
+const placeholderImg =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp15Q0fuxA016kqjJ4kbS_20EpMa3IY1-5DQ&s";
+
 const Card: React.FC<CardProps> = ({ article }) => {
   return (
     <Link
@@ -14,7 +17,11 @@ const Card: React.FC<CardProps> = ({ article }) => {
       onClick={() => window.open(article.url, "_blank")?.focus()}
       className="dark:-outline-offset-1 outline outline-black/5 dark:outline-white/10 max-w-sm rounded-xl overflow-hidden shadow-lg"
     >
-      <img className="w-full" src={article.urlToImage} alt={article.title} />
+      <img
+        className="w-full"
+        src={article.urlToImage || placeholderImg}
+        alt={article.title}
+      />
       <div className="flex flex-col px-6 py-4 gap-4">
         <div className="flex justify-between">
           <p className="text-gray-600 italic text-xs dark:text-gray-300">

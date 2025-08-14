@@ -8,7 +8,13 @@ export interface Article {
   author?: string;
   title: string;
   description: string;
-  url: string;
+  url?: string;
   urlToImage?: string;
   publishedAt: string;
+}
+
+export interface NewsApiOrgResponse {
+  status: string;
+  totalResults: number;
+  articles: Article[];
 }

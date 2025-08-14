@@ -21,3 +21,13 @@ export interface NewsApiAIArticle {
   authors: Author[];
   image: string;
 }
+
+export interface NewsApiAIResponse {
+  articles: {
+    results: NewsApiAIArticle[];
+    totalResults: number;
+    count: number;
+    page: number;
+    pages: number;
+  };
+}

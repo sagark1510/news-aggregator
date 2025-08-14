@@ -50,8 +50,6 @@ const Home = () => {
         name: "The Gaurdian",
       },
       url: item.webUrl,
-      urlToImage:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp15Q0fuxA016kqjJ4kbS_20EpMa3IY1-5DQ&s",
     }));
     setArticles(formattedNews);
   };
@@ -85,9 +83,7 @@ const Home = () => {
         name: item.source.title,
       },
       url: item.url,
-      urlToImage:
-        item.image ||
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp15Q0fuxA016kqjJ4kbS_20EpMa3IY1-5DQ&s",
+      urlToImage: item.image,
       author: item.authors.length
         ? item.authors.map(({ name }) => name).join(",")
         : "",
@@ -96,7 +92,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchNewsApiAI();
+    fetchNewsApiOrg();
   }, []);
 
   return (
