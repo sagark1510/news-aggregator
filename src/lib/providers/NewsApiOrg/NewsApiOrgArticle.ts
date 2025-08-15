@@ -3,12 +3,12 @@ interface Source {
   name: string;
 }
 
-export interface Article {
+export interface NewsApiOrgArticle {
   source: Source;
   author?: string;
   title: string;
   description: string;
-  url?: string;
+  url: string;
   urlToImage?: string;
   publishedAt: string;
 }
@@ -16,5 +16,5 @@ export interface Article {
 export interface NewsApiOrgResponse {
   status: string;
   totalResults: number;
-  articles: Article[];
+  articles: NewsApiOrgArticle[];
 }

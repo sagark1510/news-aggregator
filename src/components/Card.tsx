@@ -1,5 +1,5 @@
-import { Article } from "@/types/article";
-import { humanizeDate } from "@/utils/date";
+import { Article } from "@/lib/types/Article";
+import { humanizeDate } from "@/lib/utils/date";
 import Link from "next/link";
 import React from "react";
 
@@ -19,7 +19,7 @@ const Card: React.FC<CardProps> = ({ article }) => {
     >
       <img
         className="w-full"
-        src={article.urlToImage || placeholderImg}
+        src={article.image || placeholderImg}
         alt={article.title}
       />
       <div className="flex flex-col px-6 py-4 gap-4">
@@ -28,7 +28,7 @@ const Card: React.FC<CardProps> = ({ article }) => {
             {article.author ? `by ${article.author}` : ""}
           </p>
           <p className="text-gray-600 italic text-xs dark:text-gray-300">
-            {humanizeDate(article.publishedAt)}
+            {humanizeDate(article.datetime)}
           </p>
         </div>
         <div
