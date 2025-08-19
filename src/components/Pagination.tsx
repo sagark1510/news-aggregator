@@ -98,7 +98,7 @@ const Pagination: React.FC<PaginationProps> = ({
           return (
             <button
               key={page}
-              onClick={() => handlePageClick(page)}
+              onClick={() => handlePageClick(Number(page))}
               className={`flex items-center justify-center w-10 h-10 text-sm font-medium border rounded-md transition-colors ${
                 page === currentPage
                   ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"

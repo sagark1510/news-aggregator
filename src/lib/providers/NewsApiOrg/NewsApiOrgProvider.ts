@@ -21,7 +21,10 @@ class NewsApiOrgProvider implements NewsProvider {
     const sourcesResponse = await axios.get(`${this.config.baseUrl}/sources`, {
       params: { apiKey: this.config.apiKey },
     });
-    const sources = sourcesResponse.data.sources;
+    const sources = sourcesResponse.data.sources as {
+      country: string;
+      id: string;
+    }[];
 
     const sourcesParams = sources
       .filter(({ country }) => country === "us")
