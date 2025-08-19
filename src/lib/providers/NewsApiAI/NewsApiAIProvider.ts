@@ -31,7 +31,8 @@ class NewsApiAIProvider implements NewsProvider {
       resultType: "articles",
       articlesSortBy: "date",
       apiKey: this.config.apiKey,
-      articlesCount: params.pageSize || 10,
+      articlesCount: params.pageSize,
+      articlesPage: params.page,
     };
   }
 

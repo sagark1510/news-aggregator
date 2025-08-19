@@ -3,14 +3,14 @@ import { humanizeDate } from "@/lib/utils/date";
 import Link from "next/link";
 import React from "react";
 
-interface CardProps {
+interface NewsArticleProps {
   article: Article;
 }
 
 const placeholderImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp15Q0fuxA016kqjJ4kbS_20EpMa3IY1-5DQ&s";
 
-const Card: React.FC<CardProps> = ({ article }) => {
+const NewsArticle: React.FC<NewsArticleProps> = ({ article }) => {
   return (
     <Link
       href=""
@@ -45,4 +45,4 @@ const Card: React.FC<CardProps> = ({ article }) => {
   );
 };
 
-export default Card;
+export default NewsArticle;

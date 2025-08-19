@@ -1,27 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
-import Card from "@/components/Card";
+import React from "react";
+import NewsArticle from "@/components/NewsArticle";
 import { useNews } from "@/lib/hooks/useNews";
 import Loader from "@/components/Loader";
 import Dropdown from "@/components/Dropdown";
+import Pagination from "@/components/Pagination";
 
 const Home = () => {
-  const newsApiAIQuery = {
-    $query: {
-      $and: [
-        {
-          lang: "eng",
-        },
-      ],
-    },
-  };
-
   const { isLoading, news, error, allProviders, filters, onFilterChange } =
-    useNews({
-      pageSize: 10,
-      query: newsApiAIQuery,
-    });
+    useNews();
 
   if (isLoading) {
     return (
@@ -45,16 +33,24 @@ const Home = () => {
     <div>
       <div className="flex justify-end mb-4">
         <Dropdown
-          placeholder="Provider"
+          placeholder="Source"
           value={filters.provider}
-          onChange={(provider) => onFilterChange({ provider })}
+          onChange={(provider) => onFilterChange({ provider, page: 1 })}
           options={allProviders}
         />
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
         {news.articles.map((article) => (
-          <Card article={article} key={article.url} />
+          <NewsArticle article={article} key={article.url} />
         ))}
+      </div>
+      <div className="mt-4">
+        <Pagination
+          currentPage={filters.page}
+          totalPages={news.total}
+          onPageChange={(page) => onFilterChange({ page })}
+          className="mb-8"
+        />
       </div>
     </div>
   );

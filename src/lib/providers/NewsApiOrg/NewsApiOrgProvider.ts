@@ -42,7 +42,8 @@ class NewsApiOrgProvider implements NewsProvider {
     return {
       apiKey: this.config.apiKey,
       sources: params.source,
-      pageSize: params.pageSize || 10,
+      pageSize: params.pageSize,
+      page: params.page,
     };
   }
 

@@ -30,6 +30,8 @@ class GuardianProvider implements NewsProvider {
   private transformParams(params: NewsQueryParams) {
     return {
       "api-key": this.config.apiKey,
+      page: params.page,
+      "page-size": params.pageSize,
     };
   }
 

@@ -1,12 +1,12 @@
-import { Article } from "./article";
+import { Article } from "./Article";
 
 export interface NewsProvider {
   getName(): string;
   fetchNews(params: NewsQueryParams): Promise<NewsResponse>;
-  //   mapArticle(article: any): Article;
 }
 
 export interface NewsQueryParams {
+  page?: number;
   pageSize?: number;
   source?: string;
   query?: any;

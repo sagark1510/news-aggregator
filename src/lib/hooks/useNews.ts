@@ -15,17 +15,40 @@ const newsService = new NewsService(providersConfig);
 
 interface NewsFilter {
   provider?: string;
+  page: number;
 }
 
-export const useNews = (params: NewsQueryParams) => {
+export const useNews = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [news, setNews] = useState<NewsResponse>();
-  const [filters, setFilters] = useState<NewsFilter>({});
+  const [filters, setFilters] = useState<NewsFilter>({
+    page: 1,
+    provider: providersConfig.defaultProvider,
+  });
+
+  const prepareParams = (): NewsQueryParams => {
+    const newsApiAIQuery = {
+      $query: {
+        $and: [
+          {
+            lang: "eng",
+          },
+        ],
+      },
+    };
+
+    return {
+      pageSize: 12,
+      page: filters.page,
+      query: filters.provider === "NewsApiAI" ? newsApiAIQuery : undefined,
+    };
+  };
 
   const loadNews = async () => {
     try {
       setIsLoading(true);
+      const params = prepareParams();
       const response = await newsService.getNews(params, filters?.provider);
       setNews(response);
     } catch (e) {
@@ -34,7 +57,7 @@ export const useNews = (params: NewsQueryParams) => {
     setIsLoading(false);
   };
 
-  const onFilterChange = (updatedFilter: NewsFilter) => {
+  const onFilterChange = (updatedFilter: Partial<NewsFilter>) => {
     setFilters((prev) => ({ ...prev, ...updatedFilter }));
   };
 
